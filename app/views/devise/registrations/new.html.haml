@@ -1,21 +1,36 @@
-%h2 Sign up
-= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
-  = render "devise/shared/error_messages", resource: resource
-  .field
-    = f.label :email
-    %br/
-    = f.email_field :email, autofocus: true, autocomplete: "email"
-  .field
-    = f.label :password
-    - if @minimum_password_length
-      %em
-        (#{@minimum_password_length} characters minimum)
-    %br/
-    = f.password_field :password, autocomplete: "new-password"
-  .field
-    = f.label :password_confirmation
-    %br/
-    = f.password_field :password_confirmation, autocomplete: "new-password"
-  .actions
-    = f.submit "Sign up"
-= render "devise/shared/links"
+
+%section.vh-100{:style => "background-color: #eee;"}
+  .container.h-100
+    .row.d-flex.justify-content-center.align-items-center.h-100
+      .col-lg-12.col-xl-11
+        .card.text-black{:style => "border-radius: 25px;"}
+          .card-body.p-md-5
+            .row.justify-content-center
+              .col-md-10.col-lg-6.col-xl-5.order-2.order-lg-1
+                %p.text-center.h1.fw-bold.mb-5.mx-1.mx-md-4.mt-4 Sign up
+                = form_for(resource, as: resource_name, url: registration_path(resource_name), html: {class: " mx-1 mx-md-4"}) do |f|
+                  .d-flex.flex-row.align-items-center.mb-4
+                    %i.fas.fa-envelope.fa-lg.me-3.fa-fw
+                    .form-outline.flex-fill.mb-0
+                      = f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control"
+                      %label.form-label{:for => "form3Example3c"} Your Email
+                  .d-flex.flex-row.align-items-center.mb-4
+                    %i.fas.fa-lock.fa-lg.me-3.fa-fw
+                    .form-outline.flex-fill.mb-0
+                      = f.password_field :password, autocomplete: "new-password", class: "form-control"
+                      %label.form-label{:for => "form3Example4c"} Password
+                  .d-flex.flex-row.align-items-center.mb-4
+                    %i.fas.fa-key.fa-lg.me-3.fa-fw
+                    .form-outline.flex-fill.mb-0
+                      = f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control"
+                      %label.form-label{:for => "form3Example4cd"} Repeat your password
+                  .form-check.d-flex.justify-content-center.mb-5
+                    %input#form2Example3c.form-check-input.me-2{:type => "checkbox", :value => "", required: true}/
+                    %label.form-check-label{:for => "form2Example3"}
+                      I agree all statements in
+                      %a{:href => "#!"} Terms of service
+                  .d-flex.justify-content-center.mx-4.mb-3.mb-lg-4
+                    %button.btn.btn-primary.btn-lg{:type => "submit"} Register
+                    %a.btn.btn-primary.btn-lg{:href => new_user_session_path, style: "margin-left: 8px;"} Login
+              .col-md-10.col-lg-6.col-xl-7.d-flex.align-items-center.order-1.order-lg-2
+                %img.img-fluid{:alt => "Sample image", :src => "https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"}/

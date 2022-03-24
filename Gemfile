@@ -15,7 +15,7 @@ gem 'bootstrap', '~> 5.1.3'
 gem 'jquery-rails'
 gem 'devise'
 gem "haml-rails", "~> 2.0"
-
+gem "google-api-client"
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 5.0"
 

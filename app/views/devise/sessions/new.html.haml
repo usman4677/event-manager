@@ -1,17 +1,41 @@
-%h2 Log in
-= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-  .field
-    = f.label :email
-    %br/
-    = f.email_field :email, autofocus: true, autocomplete: "email"
-  .field
-    = f.label :password
-    %br/
-    = f.password_field :password, autocomplete: "current-password"
-  - if devise_mapping.rememberable?
-    .field
-      = f.check_box :remember_me
-      = f.label :remember_me
-  .actions
-    = f.submit "Log in"
-= render "devise/shared/links"
+-#.container
+-#  .row
+-#    .col-xl-8
+-#      = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+-#        .field
+-#          = f.label :email
+-#          %br/
+-#          = f.email_field :email, autofocus: true, autocomplete: "email"
+-#        .field
+-#          = f.label :password
+-#          %br/
+-#          = f.password_field :password, autocomplete: "current-password"
+-#        - if devise_mapping.rememberable?
+-#          .field
+-#            = f.check_box :remember_me
+-#            = f.label :remember_me
+-#        .actions
+-#          = f.submit "Log in"
+-#      = render "devise/shared/links"
+
+.wrapper
+  .logo
+    %img{:alt => "", :src => "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBNdsONhLFZaqF5TgXuCEigfEXnqaw-tZTFCxITwj9YgpHDIQUSx4owltNkRoTrSpxs-o&usqp=CAU"}/
+  .text-center.mt-4.name Event Management
+  = form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: "p-3 mt-3"} ) do |f|
+    .form-field.d-flex.align-items-center
+      %span.far.fa-user
+      = f.email_field :email, autofocus: true, autocomplete: "email", :placeholder => "Username"
+    .form-field.d-flex.align-items-center
+      %span.fas.fa-key
+      = f.password_field :password, autocomplete: "current-password", :placeholder => "Password"
+    .form-control{style: "background-color: #ecf0f3; border: none;"}
+      - if devise_mapping.rememberable?
+        .field
+          = f.check_box :remember_me
+          = f.label :remember_me
+    %button.btn.mt-3 Login
+  .text-center.fs-6
+    %a{:href => new_user_password_path} Forget password?
+    or
+    %a{:href => new_user_registration_path} Sign up

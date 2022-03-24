@@ -1,19 +1,24 @@
-= form_for @event do |f|
-  - if @event.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@event.errors.count, "error")} prohibited this event from being saved:"
-      %ul
-        - @event.errors.full_messages.each do |message|
-          %li= message
-
-  .field
-    = f.label :name
-    = f.text_field :name
-  .field
-    = f.label :start_date
-    = f.datetime_field :start_date
-  .field
-    = f.label :end_date
-    = f.datetime_field :end_date
-  .actions
-    = f.submit 'Save'
+.container-fluid.mt-6
+  .row.justify-content-md-center.align-items-center
+    .col-md-4
+      = form_for @event do |f|
+        - if @event.errors.any?
+          #error_explanation
+            %h2= "#{pluralize(@event.errors.count, "error")} prohibited this event from being saved:"
+            %ul
+              - @event.errors.full_messages.each do |message|
+                %li= message
+        .row.mb-3
+          %label.col-sm-2.col-form-label{:for => "name"} Name
+          .col-sm-10
+            = f.text_field :name, class: "form-control"
+        .row.mb-3
+          %label.col-sm-2.col-form-label{:for => "start_date"} Start Date
+          .col-sm-10
+            = f.datetime_field :start_date, class: "form-control"
+        .row.mb-3
+          %label.col-sm-2.col-form-label{:for => "end_date"} End Date
+          .col-sm-10
+            = f.datetime_field :end_date, class: "form-control"
+        %button.btn.btn-primary{:type => "submit"} Create Event
+        %a.btn.btn-primary{:href => events_path, style: "margin-left: 10px;"} Back
