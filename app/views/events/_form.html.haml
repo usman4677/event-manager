@@ -9,6 +9,7 @@
               - @event.errors.full_messages.each do |message|
                 %li= message
         .row.mb-3
+          = hidden_field_tag 'calender_id', params[:calender_id]
           %label.col-sm-2.col-form-label{:for => "name"} Name
           .col-sm-10
             = f.text_field :name, class: "form-control"

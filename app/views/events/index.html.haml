@@ -27,4 +27,4 @@
       = calendar.summary
       (#{calendar.id})
       = link_to "show_events", fetch_events_path(calendar_id: calendar.id)
-= link_to 'New Event', new_event_path
+      = link_to 'New Event', new_event_path(calender_id: calendar.id)

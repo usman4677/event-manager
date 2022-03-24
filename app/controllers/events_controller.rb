@@ -1,7 +1,6 @@
 class EventsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_event, only: %i[ show edit update destroy ]
-
   # GET /events or /events.json
   def index
     @events = Event.all
@@ -47,6 +46,7 @@ class EventsController < ApplicationController
 
     respond_to do |format|
       if @event.save
+        create_google_event
         format.html { redirect_to event_url(@event), notice: "Event was successfully created." }
         format.json { render :show, status: :created, location: @event }
       else
@@ -80,6 +80,28 @@ class EventsController < ApplicationController
   end
 
   private
+    
+    def create_google_event
+      client = Signet::OAuth2::Client.new(client_options)
+      client.update!(session[:authorization])
+
+      service = Google::Apis::CalendarV3::CalendarService.new
+      service.authorization = client
+      start_time = DateTime.parse(params[:event]["start_date"].to_s).iso8601(3)
+      end_time =  DateTime.parse(params[:event]["end_date"].to_s).iso8601(3)
+
+      event = Google::Apis::CalendarV3::Event.new(
+        summary: params[:event]["name"],
+        description: params[:event]["name"],
+        start: Google::Apis::CalendarV3::EventDateTime.new(
+          date_time: start_time
+        ),
+        end: Google::Apis::CalendarV3::EventDateTime.new(
+          date_time: end_time
+        )
+      )
+      service.insert_event(params[:calender_id].to_s, event)
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_event
       @event = Event.find(params[:id])
