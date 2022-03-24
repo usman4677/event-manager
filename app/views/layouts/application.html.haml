@@ -11,6 +11,7 @@
   %body
     - if current_user.present?
       = button_to "logout", destroy_user_session_path, method: :delete, class: "btn btn-danger"
+      = link_to "#{session[:authorization].present? ? 'Connected with google' : 'Connect with google api'}", google_index_path, class: "btn btn-success"
     -if  flash[:notice].present?
       .alert.alert-primary{:role => "alert"}
         = flash[:notice]

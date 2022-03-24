@@ -21,5 +21,10 @@
         %td= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' }
 
 %br
-
+%ul
+  - @calendar_list&.items&.each do |calendar|
+    %li
+      = calendar.summary
+      (#{calendar.id})
+      = link_to "show_events", fetch_events_path(calendar_id: calendar.id)
 = link_to 'New Event', new_event_path

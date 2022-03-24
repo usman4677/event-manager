@@ -5,10 +5,31 @@ class EventsController < ApplicationController
   # GET /events or /events.json
   def index
     @events = Event.all
+    if session[:authorization].present?
+      client = Signet::OAuth2::Client.new(client_options)
+      client.update!(session[:authorization])
+
+      service = Google::Apis::CalendarV3::CalendarService.new
+      service.authorization = client
+
+      @calendar_list = service.list_calendar_lists
+    end
   end
 
   # GET /events/1 or /events/1.json
   def show
+
+  end
+
+  def fetch_events
+    if session[:authorization].present?
+      client = Signet::OAuth2::Client.new(client_options)
+      client.update!(session[:authorization])
+
+      service = Google::Apis::CalendarV3::CalendarService.new
+      service.authorization = client
+      @event_list = service.list_events(params[:calendar_id])
+    end
   end
 
   # GET /events/new
